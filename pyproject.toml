@@ -1,0 +1,92 @@
+[project]
+name = "four-in-a-row"
+version = "0.1.0"
+description = "Fully functional Four in a Row game with AI engines and SGF persistence"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+	"matplotlib>=3.9",
+]
+
+[project.optional-dependencies]
+rl = ["torch>=2.6"]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu", marker = "sys_platform == 'win32' or sys_platform == 'linux'" },
+]
+
+[dependency-groups]
+dev = [
+	"black>=24.10",
+	"flake8>=7.3.0",
+	"mypy>=1.10",
+	"pylint>=4.0.5",
+	"pytest>=8.2",
+	"pytest-cov>=5.0",
+	"ruff>=0.6",
+	"zensical>=0.0.34",
+]
+
+[project.scripts]
+four-in-a-row = "four_in_a_row.cli:main"
+four-in-a-row-rl = "four_in_a_row.rl_cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=four_in_a_row --cov=scripts.quality --cov-branch --cov-report=term-missing --cov-report=json:coverage.json --junitxml=test-results.xml"
+markers = [
+	"fast: quick unit-level checks",
+	"regression: broader integration or AI behavior checks",
+]
+
+[tool.black]
+line-length = 80
+target-version = ["py313"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 80
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["four_in_a_row"]
+
+[tool.mypy]
+python_version = "3.13"
+files = ["four_in_a_row", "tests", "main.py", "scripts"]
+check_untyped_defs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+no_implicit_optional = true
+pretty = true
+
+[tool.pylint.main]
+ignore = [".venv", "site"]
+
+[tool.pylint.format]
+max-line-length = 80
+
+[tool.pylint.messages_control]
+disable = [
+	"too-few-public-methods",
+	"too-many-arguments",
+	"too-many-branches",
+	"too-many-instance-attributes",
+	"too-many-locals",
+	"too-many-positional-arguments",
+	"too-many-statements",
+	"duplicate-code",
+]

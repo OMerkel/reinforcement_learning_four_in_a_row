@@ -1,0 +1,33 @@
+[project]
+site_name = "Four in a Row"
+site_description = "Project documentation for architecture, engines, SGF, and usage."
+docs_dir = "doc"
+site_dir = "site"
+use_directory_urls = false
+nav = [
+    {"Home" = "index.md"},
+    {"Software Architecture" = "software_architecture.md"},
+    {"Requirements" = "requirements.md"},
+    {"Reinforcement Learning" = "reinforcement_learning.md"},
+    {"RL Beginner's Guide" = "rl_beginners_guide.md"},
+    {"PUCT Explained" = "puct.md"},
+    {"RL Lessons Learned" = "rl_lessons_learned.md"},
+    {"Engines" = "engines.md"},
+    {"Engine Details" = [
+        {"Random" = "engine_random.md"},
+        {"Minimax" = "engine_minimax.md"},
+        {"Negamax" = "engine_negamax.md"},
+        {"Alpha-Beta" = "engine_alphabeta.md"},
+        {"MCTS" = "engine_mcts.md"},
+    ]},
+    {"SGF" = "sgf.md"},
+    {"Docs Freshness" = "docs_freshness.md"},
+]
+
+[project.theme]
+features = [
+    "navigation.sections",
+    "navigation.path",
+    "navigation.top",
+    "toc.follow",
+]
